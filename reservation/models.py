@@ -23,7 +23,7 @@ def calc_expiration_date():
 
 
 class Reservation(models.Model):
-    reservation_id = models.CharField(max_length=32)
+    reservation_id = models.CharField(max_length=32, null=True, default=None)
     status = models.CharField(max_length=32, choices=RESERVATION_STATUS, default=PENDING)
     quantity = models.IntegerField(validators=[
         validators.MinValueValidator(1)
