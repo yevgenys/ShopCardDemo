@@ -11,3 +11,4 @@ tasks:
 1. better to split Reservation model into Reservation and Task. Tasks should be a separate general purpose service which handles tasks in async way 
 2. should be implemented auth properly
 3. implement backoffice to administrate available items/users
+4. omit implementing scheduler which should free up items not in FINISHED state 

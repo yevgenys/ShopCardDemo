@@ -19,7 +19,7 @@ RESERVATION_STATUS = [
 
 
 def calc_expiration_date():
-    return timezone.now() + timedelta(minutes=settings.RESERVATION_EXPIRATION)
+    return timezone.now() + timedelta(minutes=settings.RESERVATION_TTL_MINUTES)
 
 
 class Reservation(models.Model):
