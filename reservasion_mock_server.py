@@ -1,5 +1,7 @@
 # This is a mock server, do not use in production
 import json
+import random
+import time
 import uuid
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -19,23 +21,22 @@ class WebRequestHandler(BaseHTTPRequestHandler):
         req_params = "id"
         if content.get(req_params):
             data = {
-                "status": "error",
-                "error_details": f"Missing req. parameter '{req_params}'"
-            }
-        else:
-            data = {
                 "status": "ok",
                 "reservation_id": rand_reservation_id,
                 "id": content["id"]
             }
-
+        else:
+            data = {
+                "status": "error",
+                "error_details": f"Missing req. parameter '{req_params}'"
+            }
         return json.dumps(data)
 
     def do_POST(self):
         # artificial delay
-        # wait_seconds = random.randint(0, 30)
-        # self.log_message(f"Artificially waiting {wait_seconds} seconds")
-        # time.sleep(wait_seconds)
+        wait_seconds = random.randint(0, 30)
+        self.log_message(f"Artificially waiting {wait_seconds} seconds")
+        time.sleep(wait_seconds)
 
         self.send_response(201)
         self.send_header("Content-Type", "application/json")

@@ -31,12 +31,13 @@ services:
     ports:
       - 6379:6379
 
-  celery_worker:
-    build: .
-    command: "celery -A shop_api worker -l INFO"
-    volumes:
-      - .:/app
-    env_file:
-      - dev-variables.env
-    depends_on:
-      - redis
+#  celery_worker:
+#    build: .
+#    command: "celery -A shop_api worker -l INFO"
+#    volumes:
+#      - '.:/app'
+#      - './db.sqlite3:/app/db.sqlite3'
+#    env_file:
+#      - dev-variables.env
+#    depends_on:
+#      - redis
