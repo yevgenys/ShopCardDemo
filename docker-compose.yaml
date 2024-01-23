@@ -8,12 +8,12 @@ services:
   #    build: ./
   #    restart: always
   #    volumes:
-  #      - './:/app'
-  #      - '/db.sqlite3'
+  #      - '.:/app'
+  #      - 'db.sqlite3'
   #    ports:
   #      - 8000:8000
   #    env_file:
-  #      - ./be/dev-variables.env
+  #      - dev-variables.env
   #    entrypoint: ./dev-entrypoint.sh
 
   third-party-mock:
@@ -25,3 +25,18 @@ services:
     volumes:
       - ./reservasion_mock_server.py:/reservasion_mock_server.py
     command: "python reservasion_mock_server.py"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - 6379:6379
+
+  celery_worker:
+    build: .
+    command: "celery -A shop_api worker -l INFO"
+    volumes:
+      - .:/app
+    env_file:
+      - dev-variables.env
+    depends_on:
+      - redis
