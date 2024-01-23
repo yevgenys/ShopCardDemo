@@ -3,15 +3,25 @@ version: '3'
 # this is local dev file, prod need modifications
 
 services:
-  backend:
-    container_name: backend
-    build: ./be
+  #  backend:
+  #    container_name: backend
+  #    build: ./
+  #    restart: always
+  #    volumes:
+  #      - './:/app'
+  #      - '/db.sqlite3'
+  #    ports:
+  #      - 8000:8000
+  #    env_file:
+  #      - ./be/dev-variables.env
+  #    entrypoint: ./dev-entrypoint.sh
+
+  third-party-mock:
+    image: python:3
+    container_name: third-party
     restart: always
-    volumes:
-      - './:/app'
-      - '/db.sqlite3'
     ports:
-      - 8000:8000
-    env_file:
-      - ./be/dev-variables.env
-    entrypoint: ./dev-entrypoint.sh
+      - 7999:7999
+    volumes:
+      - ./reservasion_mock_server.py:/reservasion_mock_server.py
+    command: "python reservasion_mock_server.py"
