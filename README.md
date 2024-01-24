@@ -39,7 +39,7 @@ background worker dies and/or fails to update the reservation status
 
 ## Cloud Resources needed
 To deploy this application to production, there is a need for the following resources:
-1. redis DB
-2. SQL like DB - for the demo it used sql.lite
+1. redis DB instance
+2. SQL DB instance
 3. one instance of celery workers/queue
 4. one instance to run the BE application

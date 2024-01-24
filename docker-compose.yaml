@@ -3,6 +3,15 @@ version: '3'
 # this is local dev file, prod need modifications
 
 services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=shop_api
+    ports:
+      - "5432:5432"
+
   backend:
     container_name: backend
     build: ./
@@ -15,6 +24,7 @@ services:
       - dev-variables.env
     entrypoint: ./dev-entrypoint.sh
     depends_on:
+      - db
       - redis
 
   third-party-mock:
@@ -41,4 +51,5 @@ services:
       - dev-variables.env
     depends_on:
       - redis
+      - db
       - backend
