@@ -6,8 +6,7 @@ API_DEFAULT_VERSION = "api/v1"
 
 urlpatterns = [
     path(f'{API_DEFAULT_VERSION}/card/', include("card.urls"), name="card"),
-    path(f'{API_DEFAULT_VERSION}/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path(f'{API_DEFAULT_VERSION}/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path(f'{API_DEFAULT_VERSION}/reservations/', include("reservation.urls"), name="reservations"),
 ]
 
 if settings.DEBUG:

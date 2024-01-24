@@ -3,18 +3,19 @@ version: '3'
 # this is local dev file, prod need modifications
 
 services:
-  #  backend:
-  #    container_name: backend
-  #    build: ./
-  #    restart: always
-  #    volumes:
-  #      - '.:/app'
-  #      - 'db.sqlite3'
-  #    ports:
-  #      - 8000:8000
-  #    env_file:
-  #      - dev-variables.env
-  #    entrypoint: ./dev-entrypoint.sh
+  backend:
+    container_name: backend
+    build: ./
+    restart: always
+    volumes:
+      - '.:/app'
+    ports:
+      - 8000:8000
+    env_file:
+      - dev-variables.env
+    entrypoint: ./dev-entrypoint.sh
+    depends_on:
+      - redis
 
   third-party-mock:
     image: python:3
@@ -31,13 +32,13 @@ services:
     ports:
       - 6379:6379
 
-#  celery_worker:
-#    build: .
-#    command: "celery -A shop_api worker -l INFO"
-#    volumes:
-#      - '.:/app'
-#      - './db.sqlite3:/app/db.sqlite3'
-#    env_file:
-#      - dev-variables.env
-#    depends_on:
-#      - redis
+  celery_worker:
+    build: .
+    command: "celery -A shop_api worker -l INFO"
+    volumes:
+      - '.:/app'
+    env_file:
+      - dev-variables.env
+    depends_on:
+      - redis
+      - backend
